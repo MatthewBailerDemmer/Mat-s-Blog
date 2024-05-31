@@ -191,7 +191,7 @@ def check_user():
     user = db.session.execute(db.select(User).order_by(User.id)).scalars().all()
     return flask.jsonify({
         user_data.id: {
-            "emai": user_data.name,
+            "emai": user_data.email,
             "name": user_data.name,
             "password": user_data.password
         } for user_data in user
