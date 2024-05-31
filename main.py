@@ -179,7 +179,7 @@ def show_post(post_id):
             db.session.add(comment)
             db.session.commit()
         return redirect(url_for('show_post', post_id=post_id))
-    comments = db.session.execute(db.select(Comment).order_by(Comment.id.desc())).scalars().all()
+    comments = db.session.execute(db.select(Comment).where(Comment.post_id == post_id).order_by(Comment.id.desc())).scalars().all()
     requested_post = db.get_or_404(BlogPost, post_id)
     return render_template("post.html", post=requested_post, current_user=current_user
                            , comment_form=comment_form, comments=comments)
