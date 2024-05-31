@@ -1,4 +1,6 @@
 from datetime import date
+
+import flask
 from flask import Flask, abort, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
@@ -183,6 +185,19 @@ def show_post(post_id):
     requested_post = db.get_or_404(BlogPost, post_id)
     return render_template("post.html", post=requested_post, current_user=current_user
                            , comment_form=comment_form, comments=comments)
+
+@app.route("/check_users", methods=["GET"])
+def check_user():
+    user = db.session.execute(db.select(User).order_by(User.id)).scalars().all()
+    return flask.jsonify({
+        user_data.id: {
+            "emai": user_data.name,
+            "name": user_data.name,
+            "password": user_data.password
+        } for user_data in user
+    }
+
+    )
 
 
 def admin_only(f):
