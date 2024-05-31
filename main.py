@@ -188,7 +188,8 @@ def show_post(post_id):
 def admin_only(f):
     @wraps(f)
     def decorator_function(*args, **kwargs):
-        if current_user.is_authenticated and current_user.id == 1:
+
+        if current_user.is_authenticated and (current_user.id == 1):
             return f(*args, **kwargs)
         else:
             abort(403)
@@ -198,7 +199,7 @@ def admin_only(f):
 
 # TODO: Use a decorator so only an admin user can create a new post
 @app.route("/new-post", methods=["GET", "POST"])
-@admin_only
+@login_required
 def add_new_post():
     form = CreatePostForm()
     if form.validate_on_submit():
