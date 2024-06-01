@@ -186,18 +186,18 @@ def show_post(post_id):
     return render_template("post.html", post=requested_post, current_user=current_user
                            , comment_form=comment_form, comments=comments)
 
-@app.route("/check_users", methods=["GET"])
-def check_user():
-    user = db.session.execute(db.select(User).order_by(User.id)).scalars().all()
-    return flask.jsonify({
-        user_data.id: {
-            "emai": user_data.email,
-            "name": user_data.name,
-            "password": user_data.password
-        } for user_data in user
-    }
-
-    )
+# @app.route("/check_users", methods=["GET"])
+# def check_user():
+#     user = db.session.execute(db.select(User).order_by(User.id)).scalars().all()
+#     return flask.jsonify({
+#         user_data.id: {
+#             "emai": user_data.email,
+#             "name": user_data.name,
+#             "password": user_data.password
+#         } for user_data in user
+#     }
+#
+#     )
 
 
 def admin_only(f):
