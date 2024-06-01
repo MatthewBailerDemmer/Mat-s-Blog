@@ -204,7 +204,7 @@ def admin_only(f):
     @wraps(f)
     def decorator_function(*args, **kwargs):
 
-        if current_user.is_authenticated and (current_user.id == 1):
+        if current_user.is_authenticated and (current_user.id == 5):
             return f(*args, **kwargs)
         else:
             abort(403)
